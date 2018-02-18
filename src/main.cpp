@@ -231,11 +231,18 @@ int main() {
           	// TODO: define a path made up of (x,y) points that the car will visit sequentially every .02 seconds
             double dist_inc = 0.5;
             for(int i = 0; i < 50; i++) {
-              next_x_vals.push_back(car_x+(dist_inc*i)*cos(deg2rad(car_yaw)));
-              next_y_vals.push_back(car_y+(dist_inc*i)*sin(deg2rad(car_yaw)));
+              double next_s = car_s + (i+1)*dist_inc;
+              // the waypoints are measured from the double yellow line in the middle of the road
+              // So, we are like one and a half from where the waypoints are.
+              // The lanes are four meters wide. So, for one and a half lanes away
+              // from where the waypoints are one and a half times four meters wide is six
+              double next_d = 6;
+              vector<double> xy = getXY(next_s, next_d, map_waypoints_s, map_waypoints_x, map_waypoints_y);
+              next_x_vals.push_back(xy[0]);
+              next_y_vals.push_back(xy[1]);
             }
             // end
-            
+
             msgJson["next_x"] = next_x_vals;
           	msgJson["next_y"] = next_y_vals;
 
