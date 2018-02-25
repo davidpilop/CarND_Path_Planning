@@ -230,7 +230,6 @@ int main() {
             car_s = end_path_s;
           }
 
-          // Prediction : Analysing other cars positions.
           bool car_ahead = false;
           bool car_left = false;
           bool car_righ = false;
